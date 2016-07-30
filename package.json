@@ -9,7 +9,7 @@
     "tdd": "npm test -- -w",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha",
     "compile": "babel -d dist/ src/",
-    "prepublish": "npm run lint && npm test && compile"
+    "prepublish": "npm run lint && npm test && npm run compile"
   },
   "keywords": [],
   "author": "Tim Davis",
