@@ -1,7 +1,6 @@
 {
   "name": "type-diff",
   "version": "1.0.0",
-  "description": "",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src test",
@@ -14,6 +13,10 @@
   "keywords": [],
   "author": "Tim Davis",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thebearingedge/type-diff.git"
+  },
   "devDependencies": {
     "babel-cli": "6.11.4",
     "babel-eslint": "6.1.2",
