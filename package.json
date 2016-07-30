@@ -1,0 +1,27 @@
+{
+  "name": "type-diff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint src test",
+    "test": "mocha -r babel-register",
+    "tdd": "npm test -- -w",
+    "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha",
+    "compile": "babel -d dist/ src/",
+    "prepublish": "npm run lint && npm test && compile"
+  },
+  "keywords": [],
+  "author": "Tim Davis",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.11.4",
+    "babel-eslint": "6.1.2",
+    "babel-istanbul": "0.11.0",
+    "babel-plugin-transform-export-extensions": "6.8.0",
+    "babel-preset-es2015": "6.9.0",
+    "chai": "3.5.0",
+    "eslint": "3.2.0",
+    "mocha": "3.0.0-2"
+  }
+}
