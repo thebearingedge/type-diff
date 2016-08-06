@@ -4,16 +4,6 @@ import types from './types'
 
 export default function diff(Shape, obj) {
 
-  const isType = types.get(Shape)
-
-  if (isType && !isType(obj)) {
-    return {
-      actual: getTypeName(obj),
-      expected: Shape.name,
-      value: obj
-    }
-  }
-
   if (isArray(Shape)) {
 
     if (!isArray(obj)) {
@@ -34,6 +24,16 @@ export default function diff(Shape, obj) {
     for (let key in Shape) {
       const result = diff(Shape[key], obj[key])
       if (result) return { [key]: result }
+    }
+  }
+
+  const isType = types.get(Shape)
+
+  if (isType && !isType(obj)) {
+    return {
+      actual: getTypeName(obj),
+      expected: Shape.name,
+      value: obj
     }
   }
 

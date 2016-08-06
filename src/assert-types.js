@@ -1,14 +1,13 @@
 import assert from 'assert'
-import matches from './matches'
 import diff from './diff'
 
 
 export default function assertTypes(Shape, obj) {
 
-  const isMatch = matches(Shape, obj)
+  const difference = diff(Shape, obj)
 
-  if (!isMatch) {
-    const paths = JSON.stringify(diff(Shape, obj), null, 2)
-    assert(isMatch, `Interface not as expected:\n${paths}`)
+  if (difference) {
+    const paths = JSON.stringify(difference, null, 2)
+    assert(!difference, `Interface not as expected:\n${paths}`)
   }
 }

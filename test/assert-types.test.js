@@ -25,8 +25,8 @@ describe('assertTypes(Shape, obj)', () => {
     const Shape = {
       id: Number,
       name: {
-        first: 'John',
-        last: 'Doe'
+        first: String,
+        last: String
       }
     }
 
