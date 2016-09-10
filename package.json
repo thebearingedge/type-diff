@@ -8,7 +8,7 @@
     "tdd": "npm t -s -- -w",
     "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha",
     "cover": "rimraf coverage/ && npm run -s coverage -- src/*.test.js",
-    "transpile": "rimraf dist/ && babel -d dist/ src/",
+    "transpile": "rimraf dist/ && babel -d dist/ --ignore *.test.js src/",
     "precommit": "run-s lint cover transpile"
   },
   "files": [
