@@ -7,7 +7,7 @@
     "test": "mocha -r babel-register",
     "tdd": "npm t -s -- -w",
     "coverage": "babel-node node_modules/.bin/babel-istanbul",
-    "cover": "npm run -s coverage -- cover _mocha",
+    "cover": "rimraf coverage && run-s 'coverage -- cover _mocha'",
     "transpile": "rimraf dist/ && babel -d dist/ src/",
     "precommit": "run-s lint cover transpile"
   },
