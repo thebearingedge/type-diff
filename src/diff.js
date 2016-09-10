@@ -1,7 +1,6 @@
 import { isNull, isUndefined, isPlainObject, isArray } from 'lodash'
 import types from './types'
 
-
 export default function diff(Shape, obj) {
 
   if (isArray(Shape)) {
@@ -41,7 +40,6 @@ export default function diff(Shape, obj) {
 }
 
 const getTypeName = obj =>
-
   isNull(obj)
     ? 'Null'
     : isUndefined(obj)

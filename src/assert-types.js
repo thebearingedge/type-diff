@@ -1,7 +1,6 @@
 import assert from 'assert'
 import diff from './diff'
 
-
 export default function assertTypes(Shape, obj) {
 
   const difference = diff(Shape, obj)

@@ -5,7 +5,6 @@ import { isString,
          isArray,
          isDate } from 'lodash'
 
-
 export default new Map([
   [String, isString],
   [Number, isNumber],
