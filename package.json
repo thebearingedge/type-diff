@@ -14,7 +14,7 @@
   "files": [
     "dist/"
   ],
-  "keywords": [],
+  "keywords": ["unit", "test", "types", "typeof", "structure"],
   "author": "Tim Davis",
   "license": "MIT",
   "repository": {
