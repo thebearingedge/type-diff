@@ -6,8 +6,8 @@
     "lint": "eslint src/",
     "test": "mocha -r babel-register src/*.test.js",
     "tdd": "npm t -s -- -w",
-    "coverage": "babel-node node_modules/.bin/babel-istanbul",
-    "cover": "rimraf coverage/ && npm run -s coverage -- cover _mocha -- src/*.test.js",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul cover _mocha",
+    "cover": "rimraf coverage/ && npm run -s coverage -- src/*.test.js",
     "transpile": "rimraf dist/ && babel -d dist/ src/",
     "precommit": "run-s lint cover transpile"
   },
