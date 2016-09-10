@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint src test",
+    "lint": "eslint src/",
     "test": "mocha -r babel-register src/*.test.js",
     "tdd": "npm t -s -- -w",
     "coverage": "babel-node node_modules/.bin/babel-istanbul",
