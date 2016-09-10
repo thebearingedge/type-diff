@@ -10,6 +10,9 @@
     "cover": "npm run -s coverage -- cover _mocha",
     "transpile": "babel -d dist/ src/"
   },
+  "files": [
+    "dist/"
+  ],
   "keywords": [],
   "author": "Tim Davis",
   "license": "MIT",
