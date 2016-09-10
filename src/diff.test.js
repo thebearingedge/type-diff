@@ -1,4 +1,4 @@
-/* global describe, it */
+import { describe, it } from 'global'
 import { expect } from 'chai'
 import diff from '../src/diff'
 

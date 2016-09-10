@@ -1,4 +1,4 @@
-/* global describe, it */
+import { describe, it } from 'global'
 import { expect } from 'chai'
 import matches from '../src/matches'
 
