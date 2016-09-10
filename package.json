@@ -4,10 +4,10 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src test",
-    "test": "mocha -r babel-register",
+    "test": "mocha -r babel-register src/*.test.js",
     "tdd": "npm t -s -- -w",
     "coverage": "babel-node node_modules/.bin/babel-istanbul",
-    "cover": "rimraf coverage && run-s 'coverage -- cover _mocha'",
+    "cover": "rimraf coverage/ && npm run -s coverage -- cover _mocha -- src/*.test.js",
     "transpile": "rimraf dist/ && babel -d dist/ src/",
     "precommit": "run-s lint cover transpile"
   },
