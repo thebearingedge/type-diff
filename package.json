@@ -8,7 +8,7 @@
     "tdd": "npm t -s -- -w",
     "coverage": "babel-node node_modules/.bin/babel-istanbul",
     "cover": "npm run -s coverage -- cover _mocha",
-    "transpile": "babel -d dist/ src/",
+    "transpile": "rimraf dist/ && babel -d dist/ src/",
     "precommit": "run-s lint cover transpile"
   },
   "files": [
@@ -32,6 +32,7 @@
     "eslint": "3.2.0",
     "husky": "0.11.7",
     "mocha": "3.0.0-2",
-    "npm-run-all": "3.1.0"
+    "npm-run-all": "3.1.0",
+    "rimraf": "2.5.4"
   }
 }
