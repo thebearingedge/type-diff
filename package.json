@@ -5,10 +5,10 @@
   "scripts": {
     "lint": "eslint src test",
     "test": "mocha -r babel-register",
-    "tdd": "npm test -- -w",
-    "cover": "babel-node node_modules/.bin/babel-istanbul cover _mocha",
-    "compile": "babel -d dist/ src/",
-    "prepublish": "npm run lint && npm test && npm run compile"
+    "tdd": "npm t -s -- -w",
+    "coverage": "babel-node node_modules/.bin/babel-istanbul",
+    "cover": "npm run -s coverage -- cover _mocha",
+    "transpile": "babel -d dist/ src/"
   },
   "keywords": [],
   "author": "Tim Davis",
