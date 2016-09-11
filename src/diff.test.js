@@ -98,6 +98,27 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
+  it('diffs all incorrect object properties', () => {
+    const Shape = {
+      id: Number,
+      name: String
+    }
+    const now = new Date()
+    const data = { id: now, name: 42 }
+    expect(diff(Shape, data)).to.deep.equal({
+      id: {
+        actual: 'Date',
+        expected: 'Number',
+        value: now
+      },
+      name: {
+        actual: 'Number',
+        expected: 'String',
+        value: 42
+      }
+    })
+  })
+
   it('diffs an incorrect Optional shallow Shape', () => {
     const Shape = { id: Optional(Number) }
     const obj = { id: '1' }
@@ -368,7 +389,7 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
-  it('diffs a complex structure with unexpected properties', () => {
+  it('diffs a complex structure with incorrect properties', () => {
     const Pet = { name: String, weight: Number }
     const Owner = { name: String, pets: [Pet] }
     const garfield = {
@@ -377,7 +398,7 @@ describe('diff(Shape, obj)', () => {
     }
     const odie = {
       name: 'Odie',
-      weight: 17,
+      weight: '17',
       age: 3
     }
     const john = {
@@ -391,6 +412,11 @@ describe('diff(Shape, obj)', () => {
           age: {
             unexpected: 'Number',
             value: 3
+          },
+          weight: {
+            actual: 'String',
+            expected: 'Number',
+            value: '17'
           }
         }
       }
