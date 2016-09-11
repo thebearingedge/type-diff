@@ -1,7 +1,7 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
 import diff from '../src/diff'
-import { Optional, Nullable } from './types'
+import { Optional, Nullable } from './primitives'
 
 describe('diff(Shape, obj)', () => {
 
@@ -415,6 +415,16 @@ describe('diff(Shape, obj)', () => {
     }
     const result = diff(Owner, john, { strict: false })
     expect(result).to.be.null
+  })
+
+  it('diffs unknown types', () => {
+    class List {}
+    const list = []
+    expect(diff(List, list)).to.deep.equal({
+      actual: 'Array',
+      expected: 'List',
+      value: []
+    })
   })
 
 })

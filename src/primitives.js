@@ -19,7 +19,7 @@ export function Nullable(Shape) {
   this.Shape = Shape
 }
 
-export const types = new Map([
+export const primitives = new Map([
   [String, isString],
   [Number, isNumber],
   [Boolean, isBoolean],

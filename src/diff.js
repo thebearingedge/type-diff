@@ -1,5 +1,5 @@
 import { isNull, isUndefined, isPlainObject, isArray, difference } from 'lodash'
-import { types, Optional, Nullable } from './types'
+import { primitives, Optional, Nullable } from './primitives'
 
 export default function diff(Shape, obj, options = {}) {
 
@@ -29,6 +29,8 @@ export default function diff(Shape, obj, options = {}) {
       const result = diff(Shape[0], obj[i], { strict })
       if (result) return { [i]: result }
     }
+
+    return null
   }
 
   if (isPlainObject(Shape)) {
@@ -53,11 +55,13 @@ export default function diff(Shape, obj, options = {}) {
       const result = diff(Shape[key], obj[key], { strict })
       if (result) return { [key]: result }
     }
+
+    return null
   }
 
-  const isType = types.get(Shape)
+  const isOfType = primitives.get(Shape) || (obj => obj instanceof Shape)
 
-  if (isType && !isType(obj)) {
+  if (!isOfType(obj)) {
     return {
       actual: getTypeName(obj),
       expected: Shape.name,
