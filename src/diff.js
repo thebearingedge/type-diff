@@ -69,7 +69,7 @@ export default function diff(Shape, obj, options = {}) {
       : null
   }
 
-  const isOfType = primitives.get(Shape) || (obj => obj instanceof Shape)
+  const isOfType = primitives.get(Shape) || (obj => obj.constructor === Shape)
 
   if (!isOfType(obj)) {
     return {
