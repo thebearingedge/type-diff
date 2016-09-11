@@ -1,5 +1,6 @@
 {
   "name": "type-diff",
+  "description": "Simple, readable object strucure comparison",
   "version": "2.0.0-beta.1",
   "main": "dist/index.js",
   "scripts": {
@@ -19,8 +20,8 @@
     "npm": ">=3.10.3"
   },
   "keywords": [
-    "unit",
-    "test",
+    "object",
+    "schema",
     "types",
     "typeof",
     "structure"

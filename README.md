@@ -1,6 +1,47 @@
-type-diff (beta)
+type-diff
 ---
-Check the data types of Arrays, Objects, and primitives.
+Simple, readable object strucure comparison
 
 [![Build Status](https://travis-ci.org/thebearingedge/type-diff.svg?branch=master)](https://travis-ci.org/thebearingedge/type-diff)
 [![Coverage Status](https://coveralls.io/repos/github/thebearingedge/type-diff/badge.svg?branch=master)](https://coveralls.io/github/thebearingedge/type-diff?branch=master)
+
+```js
+import { diff, Nullable, Optional } from 'type-diff'
+
+const Structure = {
+  id: Number,
+  tags: [String]
+  contacts: [{
+    id: Number,
+    name: String,
+    contacted: Nullable(Date),
+    tags: Optional([String])
+  }]
+}
+
+const data = {
+  id: 1,
+  tags: ['good', 'cool'],
+  contacts: [
+    { id: 2, name: 'John Doe', contacted: null },
+    { id: '3', name: 'Jane Doe', tags: ['cool'], contacted: new Date() }
+  ]
+}
+
+diff(Structure, data)
+
+/*
+ * {
+ *   contacts: {
+ *     '1': {
+ *       id: {
+ *          actual: 'String',
+ *          expected: 'Number',
+ *          value: '3'
+ *       }
+ *     }
+ *   }
+ * }
+ *
+ */
+```
