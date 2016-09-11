@@ -1,6 +1,6 @@
 {
   "name": "type-diff",
-  "description": "Simple, readable object strucure comparison",
+  "description": "Simple, readable, structural type comparisons",
   "version": "2.2.0-beta.0",
   "main": "dist/index.js",
   "scripts": {

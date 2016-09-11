@@ -1,12 +1,12 @@
 import assert from 'assert'
 import diff from './diff'
 
-export default function assertTypes(Type, obj) {
+export default function assertTypes(Type, value) {
 
-  const difference = diff(Type, obj)
+  const result = diff(Type, value)
 
-  if (difference) {
-    const paths = JSON.stringify(difference, null, 2)
-    assert(!difference, `Interface not as expected:\n${paths}`)
+  if (result) {
+    const paths = JSON.stringify(result, null, 2)
+    assert(!result, `Incorrect Type structure: ${paths}`)
   }
 }

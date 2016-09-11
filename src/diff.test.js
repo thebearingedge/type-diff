@@ -1,7 +1,7 @@
 import { describe, context, it } from 'global'
 import { expect } from 'chai'
 import diff from './diff'
-import { Optional, Nullable, Any } from './primitives'
+import { Optional, Nullable, Any } from './types'
 
 describe('diff(Type, value)', () => {
 

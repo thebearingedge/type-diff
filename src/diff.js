@@ -1,5 +1,5 @@
 import { isNull, isUndefined, isPlainObject, isArray, difference } from 'lodash'
-import { primitives, Optional, Nullable, Any } from './primitives'
+import { types, Optional, Nullable, Any } from './types'
 
 const { keys, assign } = Object
 
@@ -44,13 +44,13 @@ export default function diff(Type, obj, options = {}) {
 
   if (isPlainObject(Type)) {
 
-    const shapeKeys = keys(Type)
+    const typeKeys = keys(Type)
     let unexpected = null
     let incorrect = null
 
     if (strict) {
       const objKeys = keys(obj)
-      const extraKeys = difference(objKeys, shapeKeys)
+      const extraKeys = difference(objKeys, typeKeys)
       if (extraKeys.length) {
         unexpected = {}
         extraKeys.reduce((extra, key) => assign(extra, {
@@ -62,8 +62,8 @@ export default function diff(Type, obj, options = {}) {
       }
     }
 
-    for (let i = 0, len = shapeKeys.length; i < len; i++) {
-      const key = shapeKeys[i]
+    for (let i = 0, len = typeKeys.length; i < len; i++) {
+      const key = typeKeys[i]
       const result = diff(Type[key], obj[key], { strict })
       if (result) {
         incorrect = incorrect || {}
@@ -76,7 +76,7 @@ export default function diff(Type, obj, options = {}) {
       : null
   }
 
-  const isOfType = primitives.get(Type) || (obj => obj.constructor === Type)
+  const isOfType = types.get(Type) || (obj => obj.constructor === Type)
 
   if (!isOfType(obj)) {
     return {

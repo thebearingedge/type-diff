@@ -25,7 +25,7 @@ export function Nullable(Type) {
   this.Type = Type
 }
 
-export const primitives = new Map([
+export const types = new Map([
   [String, isString],
   [Number, isNumber],
   [Boolean, isBoolean],
