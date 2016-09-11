@@ -1,6 +1,7 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
 import diff from '../src/diff'
+import { Optional, Nullable } from './types'
 
 describe('diff(Shape, obj)', () => {
 
@@ -15,9 +16,52 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
+  it('diffs a simple Optional value', () => {
+    const Shape = Optional(String)
+    const obj = 1
+    const result = diff(Shape, obj)
+    expect(result).to.deep.equal({
+      actual: 'Number',
+      expected: 'String',
+      value: 1
+    })
+  })
+
+  it('diffs a simple Nullable value', () => {
+    const Shape = Nullable(String)
+    const obj = 1
+    const result = diff(Shape, obj)
+    expect(result).to.deep.equal({
+      actual: 'Number',
+      expected: 'String',
+      value: 1
+    })
+  })
+
+  it('ignores a missing Optional value', () => {
+    const Shape = Optional(String)
+    const obj = undefined
+    const result = diff(Shape, obj)
+    expect(result).to.be.null
+  })
+
   it('diffs a correct shallow Shape', () => {
     const Shape = { name: String }
     const obj = { name: 'John Doe' }
+    const result = diff(Shape, obj)
+    expect(result).to.be.null
+  })
+
+  it('diffs an Optional shallow Shape', () => {
+    const Shape = { name: Optional(String) }
+    const obj = { name: undefined }
+    const result = diff(Shape, obj)
+    expect(result).to.be.null
+  })
+
+  it('diffs a Nullable shallow Shape', () => {
+    const Shape = { name: Nullable(String) }
+    const obj = { name: null }
     const result = diff(Shape, obj)
     expect(result).to.be.null
   })
@@ -43,6 +87,19 @@ describe('diff(Shape, obj)', () => {
 
   it('diffs an incorrect shallow Shape', () => {
     const Shape = { id: Number }
+    const obj = { id: '1' }
+    const result = diff(Shape, obj)
+    expect(result).to.deep.equal({
+      id: {
+        actual: 'String',
+        expected: 'Number',
+        value: '1'
+      }
+    })
+  })
+
+  it('diffs an incorrect Optional shallow Shape', () => {
+    const Shape = { id: Optional(Number) }
     const obj = { id: '1' }
     const result = diff(Shape, obj)
     expect(result).to.deep.equal({

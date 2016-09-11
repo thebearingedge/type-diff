@@ -1,9 +1,19 @@
 import { isNull, isUndefined, isPlainObject, isArray, difference } from 'lodash'
-import types from './types'
+import { types, Optional, Nullable } from './types'
 
 export default function diff(Shape, obj, options = {}) {
 
   const { strict } = Object.assign({}, { strict: true }, options)
+
+  if (Shape instanceof Optional) {
+    if (isUndefined(obj)) return null
+    return diff(Shape.Shape, obj, { strict })
+  }
+
+  if (Shape instanceof Nullable) {
+    if (isNull(obj)) return null
+    return diff(Shape.Shape, obj, { strict })
+  }
 
   if (isArray(Shape)) {
 
@@ -28,7 +38,6 @@ export default function diff(Shape, obj, options = {}) {
     if (strict) {
       const objKeys = Object.keys(obj)
       const extraKeys = difference(objKeys, shapeKeys)
-        .filter(key => !shapeKeys.includes(key))
       if (extraKeys.length) {
         return extraKeys.reduce((extra, key) => Object.assign(extra, {
           [key]: {
