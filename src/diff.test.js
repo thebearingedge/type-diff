@@ -20,8 +20,7 @@ describe('diff(Shape, obj)', () => {
   it('diffs a simple value', () => {
     const Shape = String
     const obj = 1
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -31,8 +30,7 @@ describe('diff(Shape, obj)', () => {
   it('diffs a simple Optional value', () => {
     const Shape = Optional(String)
     const obj = 1
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -42,8 +40,7 @@ describe('diff(Shape, obj)', () => {
   it('diffs a simple Nullable value', () => {
     const Shape = Nullable(String)
     const obj = 1
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -53,29 +50,25 @@ describe('diff(Shape, obj)', () => {
   it('ignores a missing Optional value', () => {
     const Shape = Optional(String)
     const obj = undefined
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs a correct shallow Shape', () => {
     const Shape = { name: String }
     const obj = { name: 'John Doe' }
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs an Optional shallow Shape', () => {
     const Shape = { name: Optional(String) }
     const obj = { name: undefined }
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs a Nullable shallow Shape', () => {
     const Shape = { name: Nullable(String) }
     const obj = { name: null }
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs a shallow shape with unexpected properties', () => {
@@ -93,15 +86,13 @@ describe('diff(Shape, obj)', () => {
   it('ignores unexpected properties on a shallow shape', () => {
     const Shape = { name: String }
     const obj = { id: 1, name: 'John Doe' }
-    const result = diff(Shape, obj, { strict: false })
-    expect(result).to.be.null
+    expect(diff(Shape, obj, { strict: false })).to.be.null
   })
 
   it('diffs an incorrect shallow Shape', () => {
     const Shape = { id: Number }
     const obj = { id: '1' }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       id: {
         actual: 'String',
         expected: 'Number',
@@ -134,8 +125,7 @@ describe('diff(Shape, obj)', () => {
   it('diffs an incorrect Optional shallow Shape', () => {
     const Shape = { id: Optional(Number) }
     const obj = { id: '1' }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       id: {
         actual: 'String',
         expected: 'Number',
@@ -159,8 +149,7 @@ describe('diff(Shape, obj)', () => {
         isActive: true
       }
     }
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs a Shape with incorrect nested Objects', () => {
@@ -178,8 +167,7 @@ describe('diff(Shape, obj)', () => {
         isActive: 0
       }
     }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       attrs: {
         isActive: {
           actual: 'Number',
@@ -206,8 +194,7 @@ describe('diff(Shape, obj)', () => {
         isHandsome: true
       }
     }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       attrs: {
         isHandsome: {
           unexpected: 'Boolean',
@@ -233,8 +220,7 @@ describe('diff(Shape, obj)', () => {
         isHandsome: true
       }
     }
-    const result = diff(Shape, obj, { strict: false })
-    expect(result).to.be.null
+    expect(diff(Shape, obj, { strict: false })).to.be.null
   })
 
   it('diffs a Shape with undefined properties', () => {
@@ -245,8 +231,7 @@ describe('diff(Shape, obj)', () => {
     const obj = {
       id: 1
     }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       attrs: {
         actual: 'Undefined',
         expected: 'Object',
@@ -264,8 +249,7 @@ describe('diff(Shape, obj)', () => {
       id: 1,
       attrs: null
     }
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       attrs: {
         actual: 'Null',
         expected: 'Object',
@@ -277,15 +261,13 @@ describe('diff(Shape, obj)', () => {
   it('diffs an Array of correct primitives', () => {
     const Shape = [String]
     const obj = ['foo', 'bar', 'baz']
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs an Array of mixed primitives', () => {
     const Shape = [Boolean]
     const obj = [true, false, null, 1]
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       '2': {
         actual: 'Null',
         expected: 'Boolean',
@@ -302,15 +284,13 @@ describe('diff(Shape, obj)', () => {
   it('diffs an Array of similar Objects', () => {
     const Shape = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
-    const result = diff(Shape, obj)
-    expect(result).to.be.null
+    expect(diff(Shape, obj)).to.be.null
   })
 
   it('diffs an Array of dissimilar Objects', () => {
     const Shape = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: {}, name: 'bar' }]
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       '1': {
         id: {
           actual: 'Object',
@@ -324,8 +304,7 @@ describe('diff(Shape, obj)', () => {
   it('diffs an Array of dissimilar Objects with extra keys', () => {
     const Shape = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar', color: 'red' }]
-    const result = diff(Shape, obj)
-    expect(result).to.deep.equal({
+    expect(diff(Shape, obj)).to.deep.equal({
       '1': {
         color: {
           unexpected: 'String',
@@ -338,8 +317,7 @@ describe('diff(Shape, obj)', () => {
   it('ignores unexpected properties on similar objects in an array', () => {
     const Shape = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar', color: 'red' }]
-    const result = diff(Shape, obj, { strict: false })
-    expect(result).to.be.null
+    expect(diff(Shape, obj, { strict: false })).to.be.null
   })
 
   it('diffs a matching complex Object', () => {
@@ -357,8 +335,7 @@ describe('diff(Shape, obj)', () => {
       name: 'John Arbuckle',
       pets: [garfield, odie]
     }
-    const result = diff(Owner, john)
-    expect(result).to.be.null
+    expect(diff(Owner, john)).to.be.null
   })
 
   it('diffs an object that should include an Array', () => {
@@ -368,8 +345,7 @@ describe('diff(Shape, obj)', () => {
       name: 'John Arbuckle',
       pets: 'Garfield & Odie'
     }
-    const result = diff(Owner, john)
-    expect(result).to.deep.equal({
+    expect(diff(Owner, john)).to.deep.equal({
       pets: {
         actual: 'String',
         expected: 'Array',
@@ -392,8 +368,7 @@ describe('diff(Shape, obj)', () => {
       name: 'John Arbuckle',
       pets: [garfield, odie]
     }
-    const result = diff(Owner, john)
-    expect(result).to.deep.equal({
+    expect(diff(Owner, john)).to.deep.equal({
       pets: {
         '0': {
           name: {
@@ -422,8 +397,7 @@ describe('diff(Shape, obj)', () => {
       name: 'John Arbuckle',
       pets: [garfield, odie]
     }
-    const result = diff(Owner, john)
-    expect(result).to.deep.equal({
+    expect(diff(Owner, john)).to.deep.equal({
       pets: {
         '1': {
           age: {
@@ -456,8 +430,7 @@ describe('diff(Shape, obj)', () => {
       name: 'John Arbuckle',
       pets: [garfield, odie]
     }
-    const result = diff(Owner, john, { strict: false })
-    expect(result).to.be.null
+    expect(diff(Owner, john, { strict: false })).to.be.null
   })
 
   it('diffs unknown types', () => {
