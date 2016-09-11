@@ -3,24 +3,24 @@ import { expect } from 'chai'
 import diff from './diff'
 import { Optional, Nullable, Any } from './primitives'
 
-describe('diff(Shape, obj)', () => {
+describe('diff(Type, obj)', () => {
 
   it('diffs Any value', () => {
-    const Shape = Any
+    const Type = Any
     const obj = null
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
   it('diffs a call to Any()', () => {
-    const Shape = Any()
+    const Type = Any()
     const obj = null
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
   it('diffs a simple value', () => {
-    const Shape = String
+    const Type = String
     const obj = 1
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -28,9 +28,9 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs a simple Optional value', () => {
-    const Shape = Optional(String)
+    const Type = Optional(String)
     const obj = 1
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -38,9 +38,9 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs a simple Nullable value', () => {
-    const Shape = Nullable(String)
+    const Type = Nullable(String)
     const obj = 1
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       actual: 'Number',
       expected: 'String',
       value: 1
@@ -48,33 +48,33 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('ignores a missing Optional value', () => {
-    const Shape = Optional(String)
+    const Type = Optional(String)
     const obj = undefined
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
-  it('diffs a correct shallow Shape', () => {
-    const Shape = { name: String }
+  it('diffs a correct shallow Type', () => {
+    const Type = { name: String }
     const obj = { name: 'John Doe' }
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
-  it('diffs an Optional shallow Shape', () => {
-    const Shape = { name: Optional(String) }
+  it('diffs an Optional shallow Type', () => {
+    const Type = { name: Optional(String) }
     const obj = { name: undefined }
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
-  it('diffs a Nullable shallow Shape', () => {
-    const Shape = { name: Nullable(String) }
+  it('diffs a Nullable shallow Type', () => {
+    const Type = { name: Nullable(String) }
     const obj = { name: null }
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
   it('diffs a shallow shape with unexpected properties', () => {
-    const Shape = { name: String }
+    const Type = { name: String }
     const obj = { id: 1, name: 'John Doe' }
-    const result = diff(Shape, obj)
+    const result = diff(Type, obj)
     expect(result).to.deep.equal({
       id: {
         unexpected: 'Number',
@@ -84,15 +84,15 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('ignores unexpected properties on a shallow shape', () => {
-    const Shape = { name: String }
+    const Type = { name: String }
     const obj = { id: 1, name: 'John Doe' }
-    expect(diff(Shape, obj, { strict: false })).to.be.null
+    expect(diff(Type, obj, { strict: false })).to.be.null
   })
 
-  it('diffs an incorrect shallow Shape', () => {
-    const Shape = { id: Number }
+  it('diffs an incorrect shallow Type', () => {
+    const Type = { id: Number }
     const obj = { id: '1' }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       id: {
         actual: 'String',
         expected: 'Number',
@@ -102,13 +102,13 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs all incorrect object properties', () => {
-    const Shape = {
+    const Type = {
       id: Number,
       name: String
     }
     const now = new Date()
     const data = { id: now, name: 42 }
-    expect(diff(Shape, data)).to.deep.equal({
+    expect(diff(Type, data)).to.deep.equal({
       id: {
         actual: 'Date',
         expected: 'Number',
@@ -122,10 +122,10 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
-  it('diffs an incorrect Optional shallow Shape', () => {
-    const Shape = { id: Optional(Number) }
+  it('diffs an incorrect Optional shallow Type', () => {
+    const Type = { id: Optional(Number) }
     const obj = { id: '1' }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       id: {
         actual: 'String',
         expected: 'Number',
@@ -134,8 +134,8 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
-  it('diffs a Shape with correct nested Objects', () => {
-    const Shape = {
+  it('diffs a Type with correct nested Objects', () => {
+    const Type = {
       id: Number,
       attrs: {
         name: String,
@@ -149,11 +149,11 @@ describe('diff(Shape, obj)', () => {
         isActive: true
       }
     }
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
-  it('diffs a Shape with incorrect nested Objects', () => {
-    const Shape = {
+  it('diffs a Type with incorrect nested Objects', () => {
+    const Type = {
       id: Number,
       attrs: {
         name: String,
@@ -167,7 +167,7 @@ describe('diff(Shape, obj)', () => {
         isActive: 0
       }
     }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       attrs: {
         isActive: {
           actual: 'Number',
@@ -178,8 +178,8 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
-  it('diffs a Shape with unexpected nested properties', () => {
-    const Shape = {
+  it('diffs a Type with unexpected nested properties', () => {
+    const Type = {
       id: Number,
       attrs: {
         name: String,
@@ -194,7 +194,7 @@ describe('diff(Shape, obj)', () => {
         isHandsome: true
       }
     }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       attrs: {
         isHandsome: {
           unexpected: 'Boolean',
@@ -205,7 +205,7 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('ignores unexpected nested properties', () => {
-    const Shape = {
+    const Type = {
       id: Number,
       attrs: {
         name: String,
@@ -220,18 +220,18 @@ describe('diff(Shape, obj)', () => {
         isHandsome: true
       }
     }
-    expect(diff(Shape, obj, { strict: false })).to.be.null
+    expect(diff(Type, obj, { strict: false })).to.be.null
   })
 
-  it('diffs a Shape with undefined properties', () => {
-    const Shape = {
+  it('diffs a Type with undefined properties', () => {
+    const Type = {
       id: Number,
       attrs: Object
     }
     const obj = {
       id: 1
     }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       attrs: {
         actual: 'Undefined',
         expected: 'Object',
@@ -240,8 +240,8 @@ describe('diff(Shape, obj)', () => {
     })
   })
 
-  it('diffs a Shape with null properties', () => {
-    const Shape = {
+  it('diffs a Type with null properties', () => {
+    const Type = {
       id: Number,
       attrs: Object
     }
@@ -249,7 +249,7 @@ describe('diff(Shape, obj)', () => {
       id: 1,
       attrs: null
     }
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       attrs: {
         actual: 'Null',
         expected: 'Object',
@@ -259,15 +259,15 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs an Array of correct primitives', () => {
-    const Shape = [String]
+    const Type = [String]
     const obj = ['foo', 'bar', 'baz']
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
   it('diffs an Array of mixed primitives', () => {
-    const Shape = [Boolean]
+    const Type = [Boolean]
     const obj = [true, false, null, 1]
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       '2': {
         actual: 'Null',
         expected: 'Boolean',
@@ -282,15 +282,15 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs an Array of similar Objects', () => {
-    const Shape = [{ id: Number, name: String }]
+    const Type = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
-    expect(diff(Shape, obj)).to.be.null
+    expect(diff(Type, obj)).to.be.null
   })
 
   it('diffs an Array of dissimilar Objects', () => {
-    const Shape = [{ id: Number, name: String }]
+    const Type = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: {}, name: 'bar' }]
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       '1': {
         id: {
           actual: 'Object',
@@ -302,9 +302,9 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('diffs an Array of dissimilar Objects with extra keys', () => {
-    const Shape = [{ id: Number, name: String }]
+    const Type = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar', color: 'red' }]
-    expect(diff(Shape, obj)).to.deep.equal({
+    expect(diff(Type, obj)).to.deep.equal({
       '1': {
         color: {
           unexpected: 'String',
@@ -315,9 +315,9 @@ describe('diff(Shape, obj)', () => {
   })
 
   it('ignores unexpected properties on similar objects in an array', () => {
-    const Shape = [{ id: Number, name: String }]
+    const Type = [{ id: Number, name: String }]
     const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar', color: 'red' }]
-    expect(diff(Shape, obj, { strict: false })).to.be.null
+    expect(diff(Type, obj, { strict: false })).to.be.null
   })
 
   it('diffs a matching complex Object', () => {

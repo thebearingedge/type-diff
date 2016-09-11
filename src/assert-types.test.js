@@ -2,10 +2,10 @@ import { describe, it } from 'global'
 import { expect } from 'chai'
 import assertTypes from './assert-types'
 
-describe('assertTypes(Shape, obj)', () => {
+describe('assertTypes(Type, obj)', () => {
 
-  it('does not throw if an Object matches a Shape', () => {
-    const Shape = {
+  it('does not throw if an Object matches a Type', () => {
+    const Type = {
       id: Number,
       name: String
     }
@@ -13,11 +13,11 @@ describe('assertTypes(Shape, obj)', () => {
       id: 1,
       name: 'John Doe'
     }
-    expect(() => assertTypes(Shape, obj)).not.to.throw()
+    expect(() => assertTypes(Type, obj)).not.to.throw()
   })
 
-  it('throws if an Object does not match a Shape', () => {
-    const Shape = {
+  it('throws if an Object does not match a Type', () => {
+    const Type = {
       id: Number,
       name: {
         first: String,
@@ -28,7 +28,7 @@ describe('assertTypes(Shape, obj)', () => {
       id: 1,
       name: 'John Doe'
     }
-    expect(() => assertTypes(Shape, obj)).to.throw()
+    expect(() => assertTypes(Type, obj)).to.throw()
   })
 
 })

@@ -7,16 +7,17 @@ Simple, readable object strucure comparison
 
 ```js
 import assert from 'assert'
-import { diff, Nullable, Optional } from 'type-diff'
+import { diff, Nullable, Optional, Any } from 'type-diff'
 
-const Structure = {
+const Type = {
   id: Number,
   tags: [String]
   contacts: [{
     id: Number,
     name: String,
     contacted: Nullable(Date),
-    tags: Optional([String])
+    tags: Optional([String]),
+    whargarble: Any()
   }]
 }
 
@@ -24,12 +25,12 @@ const data = {
   id: 1,
   tags: ['good', 'cool'],
   contacts: [
-    { id: 2, name: 'John Doe', contacted: null },
+    { id: 2, name: 'John Doe', contacted: null, whargarble: _ => 'wheee' },
     { id: '3', name: 'Jane Doe', contacted: new Date(), tags: ['cool'] }
   ]
 }
 
-assert.deepEqual(diff(Structure, data), {
+assert.deepEqual(diff(Type, data), {
   contacts: {
     '1': {
       id: {

@@ -3,23 +3,23 @@ import { primitives, Optional, Nullable, Any } from './primitives'
 
 const { keys, assign } = Object
 
-export default function diff(Shape, obj, options = {}) {
+export default function diff(Type, obj, options = {}) {
 
-  if (Shape === Any || Shape instanceof Any) return null
+  if (Type === Any || Type instanceof Any) return null
 
   const { strict } = assign({}, { strict: true }, options)
 
-  if (Shape instanceof Optional) {
+  if (Type instanceof Optional) {
     if (isUndefined(obj)) return null
-    return diff(Shape.Shape, obj, { strict })
+    return diff(Type.Type, obj, { strict })
   }
 
-  if (Shape instanceof Nullable) {
+  if (Type instanceof Nullable) {
     if (isNull(obj)) return null
-    return diff(Shape.Shape, obj, { strict })
+    return diff(Type.Type, obj, { strict })
   }
 
-  if (isArray(Shape)) {
+  if (isArray(Type)) {
 
     if (!isArray(obj)) {
       return {
@@ -32,7 +32,7 @@ export default function diff(Shape, obj, options = {}) {
     let result = null
 
     for (let i = 0, len = obj.length; i < len; i++) {
-      const incorrect = diff(Shape[0], obj[i], { strict })
+      const incorrect = diff(Type[0], obj[i], { strict })
       if (incorrect) {
         result = result || {}
         result[i] = incorrect
@@ -42,9 +42,9 @@ export default function diff(Shape, obj, options = {}) {
     return result
   }
 
-  if (isPlainObject(Shape)) {
+  if (isPlainObject(Type)) {
 
-    const shapeKeys = keys(Shape)
+    const shapeKeys = keys(Type)
     let unexpected = null
     let incorrect = null
 
@@ -64,7 +64,7 @@ export default function diff(Shape, obj, options = {}) {
 
     for (let i = 0, len = shapeKeys.length; i < len; i++) {
       const key = shapeKeys[i]
-      const result = diff(Shape[key], obj[key], { strict })
+      const result = diff(Type[key], obj[key], { strict })
       if (result) {
         incorrect = incorrect || {}
         assign(incorrect, { [key]: result })
@@ -76,12 +76,12 @@ export default function diff(Shape, obj, options = {}) {
       : null
   }
 
-  const isOfType = primitives.get(Shape) || (obj => obj.constructor === Shape)
+  const isOfType = primitives.get(Type) || (obj => obj.constructor === Type)
 
   if (!isOfType(obj)) {
     return {
       actual: getTypeName(obj),
-      expected: Shape.name,
+      expected: Type.name,
       value: obj
     }
   }

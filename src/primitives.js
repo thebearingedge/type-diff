@@ -11,18 +11,18 @@ export function Any() {
   }
 }
 
-export function Optional(Shape) {
+export function Optional(Type) {
   if (!(this instanceof Optional)) {
-    return new Optional(Shape)
+    return new Optional(Type)
   }
-  this.Shape = Shape
+  this.Type = Type
 }
 
-export function Nullable(Shape) {
+export function Nullable(Type) {
   if (!(this instanceof Nullable)) {
-    return new Nullable(Shape)
+    return new Nullable(Type)
   }
-  this.Shape = Shape
+  this.Type = Type
 }
 
 export const primitives = new Map([

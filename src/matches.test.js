@@ -2,10 +2,10 @@ import { describe, it } from 'global'
 import { expect } from 'chai'
 import matches from './matches'
 
-describe('matches(Shape, obj)', () => {
+describe('matches(Type, obj)', () => {
 
-  it('knows whether an Array populated with Objects matches a Shape', () => {
-    const Shape = [{ name: String, birthday: Date }]
+  it('knows whether an Array populated with Objects matches a Type', () => {
+    const Type = [{ name: String, birthday: Date }]
     const obj = [
       {
         name: 'Dennis Ritchie',
@@ -20,10 +20,10 @@ describe('matches(Shape, obj)', () => {
         birthday: new Date('December 1960')
       }
     ]
-    expect(matches(Shape, obj)).to.be.true
+    expect(matches(Type, obj)).to.be.true
   })
 
-  it('knows whether a complex object matches a Shape', () => {
+  it('knows whether a complex object matches a Type', () => {
     const Pet = { name: String, weight: Number }
     const Owner = { name: String, pets: [Pet] }
     const garfield = {
