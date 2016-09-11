@@ -1,9 +1,21 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
 import diff from './diff'
-import { Optional, Nullable } from './primitives'
+import { Optional, Nullable, Any } from './primitives'
 
 describe('diff(Shape, obj)', () => {
+
+  it('diffs Any value', () => {
+    const Shape = Any
+    const obj = null
+    expect(diff(Shape, obj)).to.be.null
+  })
+
+  it('diffs a call to Any()', () => {
+    const Shape = Any()
+    const obj = null
+    expect(diff(Shape, obj)).to.be.null
+  })
 
   it('diffs a simple value', () => {
     const Shape = String

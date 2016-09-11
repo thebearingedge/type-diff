@@ -5,6 +5,12 @@ import { isString,
          isArray,
          isDate } from 'lodash'
 
+export function Any() {
+  if (!(this instanceof Any)) {
+    return new Any()
+  }
+}
+
 export function Optional(Shape) {
   if (!(this instanceof Optional)) {
     return new Optional(Shape)

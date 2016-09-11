@@ -1,9 +1,11 @@
 import { isNull, isUndefined, isPlainObject, isArray, difference } from 'lodash'
-import { primitives, Optional, Nullable } from './primitives'
+import { primitives, Optional, Nullable, Any } from './primitives'
 
 const { keys, assign } = Object
 
 export default function diff(Shape, obj, options = {}) {
+
+  if (Shape === Any || Shape instanceof Any) return null
 
   const { strict } = assign({}, { strict: true }, options)
 
