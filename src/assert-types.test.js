@@ -1,6 +1,6 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
-import assertTypes from '../src/assert-types'
+import assertTypes from './assert-types'
 
 describe('assertTypes(Shape, obj)', () => {
 

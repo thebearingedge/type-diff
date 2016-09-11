@@ -1,6 +1,6 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
-import matches from '../src/matches'
+import matches from './matches'
 
 describe('matches(Shape, obj)', () => {
 

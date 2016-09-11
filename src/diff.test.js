@@ -1,6 +1,6 @@
 import { describe, it } from 'global'
 import { expect } from 'chai'
-import diff from '../src/diff'
+import diff from './diff'
 import { Optional, Nullable } from './primitives'
 
 describe('diff(Shape, obj)', () => {
