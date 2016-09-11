@@ -167,12 +167,12 @@ describe('diff(Type, value)', () => {
       })
     })
 
-    context('when `strict` option is `false`', () => {
+    context('when `subset` option is `true`', () => {
 
       it('ignores unexpected properties', () => {
         const Type = { name: String }
         const obj = { id: 1, name: 'John Doe' }
-        expect(diff(Type, obj, { strict: false })).to.be.null
+        expect(diff(Type, obj, { subset: true })).to.be.null
       })
 
     })
@@ -251,7 +251,7 @@ describe('diff(Type, value)', () => {
       })
     })
 
-    context('when `strict` option is `false`', () => {
+    context('when `subset` option is `true`', () => {
 
       it('ignores unexpected nested properties', () => {
         const Type = {
@@ -269,7 +269,7 @@ describe('diff(Type, value)', () => {
             isHandsome: true
           }
         }
-        expect(diff(Type, obj, { strict: false })).to.be.null
+        expect(diff(Type, obj, { subset: true })).to.be.null
       })
 
     })
@@ -385,7 +385,7 @@ describe('diff(Type, value)', () => {
       })
     })
 
-    context('when `strict` option is `false`', () => {
+    context('when `subset` option is `true`', () => {
 
       it('ignores unexpected complex properties', () => {
         const owner = {
@@ -395,7 +395,7 @@ describe('diff(Type, value)', () => {
             { name: 'Odie', weight: 17, isSmart: false }
           ]
         }
-        expect(diff(Owner, owner, { strict: false })).to.be.null
+        expect(diff(Owner, owner, { subset: true })).to.be.null
       })
 
     })

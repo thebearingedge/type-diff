@@ -3,20 +3,18 @@ import { types, Optional, Nullable, Any } from './types'
 
 const { keys, assign } = Object
 
-export default function diff(Type, obj, options = {}) {
+export default function diff(Type, obj, { subset = false } = {}) {
 
   if (Type === Any || Type instanceof Any) return null
 
-  const { strict } = assign({}, { strict: true }, options)
-
   if (Type instanceof Optional) {
     if (isUndefined(obj)) return null
-    return diff(Type.Type, obj, { strict })
+    return diff(Type.Type, obj, { subset })
   }
 
   if (Type instanceof Nullable) {
     if (isNull(obj)) return null
-    return diff(Type.Type, obj, { strict })
+    return diff(Type.Type, obj, { subset })
   }
 
   if (isArray(Type)) {
@@ -32,7 +30,7 @@ export default function diff(Type, obj, options = {}) {
     let result = null
 
     for (let i = 0, len = obj.length; i < len; i++) {
-      const incorrect = diff(Type[0], obj[i], { strict })
+      const incorrect = diff(Type[0], obj[i], { subset })
       if (incorrect) {
         result = result || {}
         result[i] = incorrect
@@ -48,7 +46,7 @@ export default function diff(Type, obj, options = {}) {
     let unexpected = null
     let incorrect = null
 
-    if (strict) {
+    if (!subset) {
       const objKeys = keys(obj)
       const extraKeys = difference(objKeys, typeKeys)
       if (extraKeys.length) {
@@ -64,7 +62,7 @@ export default function diff(Type, obj, options = {}) {
 
     for (let i = 0, len = typeKeys.length; i < len; i++) {
       const key = typeKeys[i]
-      const result = diff(Type[key], obj[key], { strict })
+      const result = diff(Type[key], obj[key], { subset })
       if (result) {
         incorrect = incorrect || {}
         assign(incorrect, { [key]: result })
