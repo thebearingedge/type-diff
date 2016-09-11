@@ -27,12 +27,17 @@ export default function diff(Shape, obj, options = {}) {
       }
     }
 
+    let result = null
+
     for (let i = 0, len = obj.length; i < len; i++) {
-      const result = diff(Shape[0], obj[i], { strict })
-      if (result) return { [i]: result }
+      const incorrect = diff(Shape[0], obj[i], { strict })
+      if (incorrect) {
+        result = result || {}
+        result[i] = incorrect
+      }
     }
 
-    return null
+    return result
   }
 
   if (isPlainObject(Shape)) {

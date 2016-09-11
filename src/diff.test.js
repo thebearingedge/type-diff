@@ -271,13 +271,18 @@ describe('diff(Shape, obj)', () => {
 
   it('diffs an Array of mixed primitives', () => {
     const Shape = [Boolean]
-    const obj = [true, false, null]
+    const obj = [true, false, null, 1]
     const result = diff(Shape, obj)
     expect(result).to.deep.equal({
       '2': {
         actual: 'Null',
         expected: 'Boolean',
         value: null
+      },
+      '3': {
+        actual: 'Number',
+        expected: 'Boolean',
+        value: 1
       }
     })
   })
