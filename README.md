@@ -6,6 +6,7 @@ Simple, readable object strucure comparison
 [![Coverage Status](https://coveralls.io/repos/github/thebearingedge/type-diff/badge.svg?branch=master)](https://coveralls.io/github/thebearingedge/type-diff?branch=master)
 
 ```js
+import assert from 'assert'
 import { diff, Nullable, Optional } from 'type-diff'
 
 const Structure = {
@@ -24,24 +25,19 @@ const data = {
   tags: ['good', 'cool'],
   contacts: [
     { id: 2, name: 'John Doe', contacted: null },
-    { id: '3', name: 'Jane Doe', tags: ['cool'], contacted: new Date() }
+    { id: '3', name: 'Jane Doe', contacted: new Date(), tags: ['cool'] }
   ]
 }
 
-diff(Structure, data)
-
-/*
- * {
- *   contacts: {
- *     '1': {
- *       id: {
- *          actual: 'String',
- *          expected: 'Number',
- *          value: '3'
- *       }
- *     }
- *   }
- * }
- *
- */
+assert.deepEqual(diff(Structure, data), {
+  contacts: {
+    '1': {
+      id: {
+         actual: 'String',
+         expected: 'Number',
+         value: '3'
+      }
+    }
+  }
+})
 ```
