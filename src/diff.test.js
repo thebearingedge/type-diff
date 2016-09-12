@@ -45,12 +45,23 @@ describe('diff(Type, value)', () => {
 
     it('diffs an unknown Type', () => {
       class List {}
-      const list = []
-      expect(diff(List, list)).to.deep.equal({
-        actual: 'Array',
-        expected: 'List',
-        value: []
+      class SpecialList extends List {}
+      expect(diff(List, new SpecialList())).to.be.null
+    })
+
+    context('when `instanceOf` option is set', () => {
+
+      it('diffs a value by `instanceOf`', () => {
+        class List {}
+        class SpecialList extends List {}
+        const instanceOf = (Type, value) => value.constructor === Type
+        expect(diff(List, new SpecialList(), { instanceOf })).to.deep.equal({
+          actual: 'SpecialList',
+          expected: 'List',
+          value: {}
+        })
       })
+
     })
 
   })
