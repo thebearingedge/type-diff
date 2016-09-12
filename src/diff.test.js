@@ -70,14 +70,14 @@ describe('diff(Type, value)', () => {
 
     it('diffs a correct shallow Type', () => {
       const Type = { name: String }
-      const obj = { name: 'John Doe' }
-      expect(diff(Type, obj)).to.be.null
+      const value = { name: 'John Doe' }
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs an incorrect shallow Type', () => {
       const Type = { id: Number }
-      const obj = { id: '1' }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: '1' }
+      expect(diff(Type, value)).to.deep.equal({
         id: {
           actual: 'String',
           expected: 'Number',
@@ -88,8 +88,8 @@ describe('diff(Type, value)', () => {
 
     it('diffs undefined properties', () => {
       const Type = { id: Number, attrs: Object }
-      const obj = { id: 1 }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: 1 }
+      expect(diff(Type, value)).to.deep.equal({
         attrs: {
           actual: 'Undefined',
           expected: 'Object',
@@ -100,8 +100,8 @@ describe('diff(Type, value)', () => {
 
     it('diffs null properties', () => {
       const Type = { id: Number, attrs: Object }
-      const obj = { id: 1, attrs: null }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: 1, attrs: null }
+      expect(diff(Type, value)).to.deep.equal({
         attrs: {
           actual: 'Null',
           expected: 'Object',
@@ -112,20 +112,20 @@ describe('diff(Type, value)', () => {
 
     it('diffs a correct Optional property', () => {
       const Type = { name: Optional(String) }
-      const obj = { name: undefined }
-      expect(diff(Type, obj)).to.be.null
+      const value = { name: undefined }
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs a Nullable property', () => {
       const Type = { name: Nullable(String) }
-      const obj = { name: null }
-      expect(diff(Type, obj)).to.be.null
+      const value = { name: null }
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs an incorrect Optional property', () => {
       const Type = { id: Optional(Number) }
-      const obj = { id: '1' }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: '1' }
+      expect(diff(Type, value)).to.deep.equal({
         id: {
           actual: 'String',
           expected: 'Number',
@@ -137,8 +137,8 @@ describe('diff(Type, value)', () => {
     it('diffs all incorrect properties', () => {
       const Type = { id: Number, name: String }
       const now = new Date()
-      const obj = { id: now, name: 42 }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: now, name: 42 }
+      expect(diff(Type, value)).to.deep.equal({
         id: {
           actual: 'Date',
           expected: 'Number',
@@ -154,8 +154,8 @@ describe('diff(Type, value)', () => {
 
     it('diffs unexpected properties', () => {
       const Type = { name: String }
-      const obj = { id: 1, name: 'John Doe' }
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = { id: 1, name: 'John Doe' }
+      expect(diff(Type, value)).to.deep.equal({
         id: {
           unexpected: 'Number',
           value: 1
@@ -165,11 +165,11 @@ describe('diff(Type, value)', () => {
 
     it('diffs an incorrect Array property', () => {
       const Type = { name: String, pets: [{ name: String, weight: Number }] }
-      const obj = {
+      const value = {
         name: 'John Arbuckle',
         pets: 'Garfield & Odie'
       }
-      expect(diff(Type, obj)).to.deep.equal({
+      expect(diff(Type, value)).to.deep.equal({
         pets: {
           actual: 'String',
           expected: 'Array',
@@ -182,8 +182,8 @@ describe('diff(Type, value)', () => {
 
       it('ignores unexpected properties', () => {
         const Type = { name: String }
-        const obj = { id: 1, name: 'John Doe' }
-        expect(diff(Type, obj, { subset: true })).to.be.null
+        const value = { id: 1, name: 'John Doe' }
+        expect(diff(Type, value, { subset: true })).to.be.null
       })
 
     })
@@ -200,14 +200,14 @@ describe('diff(Type, value)', () => {
           isActive: Boolean
         }
       }
-      const obj = {
+      const value = {
         id: 1,
         attrs: {
           name: 'John Doe',
           isActive: true
         }
       }
-      expect(diff(Type, obj)).to.be.null
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs incorrect nested properties', () => {
@@ -218,14 +218,14 @@ describe('diff(Type, value)', () => {
           isActive: Boolean
         }
       }
-      const obj = {
+      const value = {
         id: 1,
         attrs: {
           name: 'John Doe',
           isActive: 0
         }
       }
-      expect(diff(Type, obj)).to.deep.equal({
+      expect(diff(Type, value)).to.deep.equal({
         attrs: {
           isActive: {
             actual: 'Number',
@@ -244,7 +244,7 @@ describe('diff(Type, value)', () => {
           isActive: Boolean
         }
       }
-      const obj = {
+      const value = {
         id: 1,
         attrs: {
           name: 'John Doe',
@@ -252,7 +252,7 @@ describe('diff(Type, value)', () => {
           isHandsome: true
         }
       }
-      expect(diff(Type, obj)).to.deep.equal({
+      expect(diff(Type, value)).to.deep.equal({
         attrs: {
           isHandsome: {
             unexpected: 'Boolean',
@@ -272,7 +272,7 @@ describe('diff(Type, value)', () => {
             isActive: Boolean
           }
         }
-        const obj = {
+        const value = {
           id: 1,
           attrs: {
             name: 'John Doe',
@@ -280,7 +280,7 @@ describe('diff(Type, value)', () => {
             isHandsome: true
           }
         }
-        expect(diff(Type, obj, { subset: true })).to.be.null
+        expect(diff(Type, value, { subset: true })).to.be.null
       })
 
     })
@@ -291,14 +291,14 @@ describe('diff(Type, value)', () => {
 
     it('diffs an Array of correct primitives', () => {
       const Type = [String]
-      const obj = ['foo', 'bar', 'baz']
-      expect(diff(Type, obj)).to.be.null
+      const value = ['foo', 'bar', 'baz']
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs an Array of mixed primitives', () => {
       const Type = [Boolean]
-      const obj = [true, false, null, 1]
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = [true, false, null, 1]
+      expect(diff(Type, value)).to.deep.equal({
         '2': {
           actual: 'Null',
           expected: 'Boolean',
@@ -314,14 +314,14 @@ describe('diff(Type, value)', () => {
 
     it('diffs an Array of similar Objects', () => {
       const Type = [{ id: Number, name: String }]
-      const obj = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
-      expect(diff(Type, obj)).to.be.null
+      const value = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
+      expect(diff(Type, value)).to.be.null
     })
 
     it('diffs an Array of dissimilar Objects', () => {
       const Type = [{ id: Number, name: String }]
-      const obj = [{ id: 1, name: 'foo' }, { id: {}, name: 'bar' }]
-      expect(diff(Type, obj)).to.deep.equal({
+      const value = [{ id: 1, name: 'foo' }, { id: {}, name: 'bar' }]
+      expect(diff(Type, value)).to.deep.equal({
         '1': {
           id: {
             actual: 'Object',

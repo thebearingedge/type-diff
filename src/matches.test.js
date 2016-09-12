@@ -6,7 +6,7 @@ describe('matches(Type, value)', () => {
 
   it('knows whether an Array populated with Objects matches a Type', () => {
     const Type = [{ name: String, birthday: Date }]
-    const arr = [
+    const value = [
       {
         name: 'Dennis Ritchie',
         birthday: new Date('September 9, 1941')
@@ -20,12 +20,12 @@ describe('matches(Type, value)', () => {
         birthday: new Date('December 1960')
       }
     ]
-    expect(matches(Type, arr)).to.be.true
+    expect(matches(Type, value)).to.be.true
   })
 
   it('knows whether a complex Object matches a Type', () => {
-    const Owner = { name: String, pets: [{ name: String, weight: Number }] }
-    const owner = {
+    const Type = { name: String, pets: [{ name: String, weight: Number }] }
+    const value = {
       name: 'John Arbuckle',
       pets: [
         { name: 'Garfield', weight: 40 },
@@ -33,7 +33,7 @@ describe('matches(Type, value)', () => {
         1
       ]
     }
-    expect(matches(Owner, owner)).to.be.false
+    expect(matches(Type, value)).to.be.false
   })
 
 })
