@@ -17,7 +17,7 @@ const Type = {
     name: String,
     contacted: Nullable(Date),
     tags: Optional([String]),
-    whargarble: Any()
+    wharrgarbl: Any()
   }]
 }
 
@@ -25,7 +25,7 @@ const value = {
   id: 1,
   tags: ['good', 'cool'],
   contacts: [
-    { id: 2, name: 'John Doe', contacted: null, whargarble: _ => 'wheee' },
+    { id: 2, name: 'John Doe', contacted: null, wharrgarbl: _ => 'wheee' },
     { id: '3', name: 'Jane Doe', contacted: new Date(), tags: ['cool'] }
   ]
 }
