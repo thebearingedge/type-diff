@@ -1,7 +1,7 @@
 {
   "name": "type-diff",
   "description": "Simple, readable, structural type comparisons",
-  "version": "2.2.0-beta.0",
+  "version": "3.0.0",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/",
@@ -23,7 +23,6 @@
     "object",
     "schema",
     "types",
-    "typeof",
     "structure"
   ],
   "author": "Tim Davis",

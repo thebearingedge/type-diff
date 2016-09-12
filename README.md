@@ -21,7 +21,7 @@ const Type = {
   }]
 }
 
-const data = {
+const value = {
   id: 1,
   tags: ['good', 'cool'],
   contacts: [
@@ -30,7 +30,7 @@ const data = {
   ]
 }
 
-assert.deepEqual(diff(Type, data), {
+assert.deepEqual(diff(Type, value), {
   contacts: {
     '1': {
       id: {
