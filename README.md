@@ -1,9 +1,9 @@
-type-diff
----
 Simple, readable, structural type comparisons
 
 [![Build Status](https://travis-ci.org/thebearingedge/type-diff.svg?branch=master)](https://travis-ci.org/thebearingedge/type-diff)
 [![Coverage Status](https://coveralls.io/repos/github/thebearingedge/type-diff/badge.svg?branch=master)](https://coveralls.io/github/thebearingedge/type-diff?branch=master)
+
+### Quick Example
 
 ```js
 import assert from 'assert'
@@ -42,3 +42,17 @@ assert.deepEqual(diff(Type, value), {
   }
 })
 ```
+### Usage
+
+`diff(Type, value[, options])`
+
+Generate an object literal representation of the difference between your `Type` and a given `value` as shown above in the [Quick Example](#quick-example).
+
+### Supported Built-ins
+
+- `Number`
+- `String`
+- `Boolean`
+- `Object`
+- `Array`
+- `Date`
