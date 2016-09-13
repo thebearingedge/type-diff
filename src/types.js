@@ -5,6 +5,7 @@ import { isString,
          isArray,
          isDate,
          isUndefined,
+         isFunction,
          isNull } from 'lodash'
 
 export function Any() {
@@ -35,5 +36,6 @@ export const types = new Map([
   [Boolean, isBoolean],
   [Object, isPlainObject],
   [Array, isArray],
-  [Date, isDate]
+  [Date, isDate],
+  [Function, isFunction]
 ])

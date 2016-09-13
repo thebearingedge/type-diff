@@ -17,7 +17,7 @@ const Type = {
     name: String,
     contacted: Nullable(Date),
     tags: Optional([String]),
-    wharrgarbl: Optional(Any)
+    wharrgarbl: Any()
   }]
 }
 
@@ -34,9 +34,13 @@ assert.deepEqual(diff(Type, value), {
   contacts: {
     '1': {
       id: {
-         actual: 'String',
-         expected: 'Number',
-         value: '3'
+        actual: 'String',
+        expected: 'Number',
+        value: '3'
+      },
+      wharrgarbl: {
+        actual: 'Undefined',
+        expected: 'Any'
       }
     }
   }
@@ -56,3 +60,48 @@ Generate an object literal representation of the difference between your `Type` 
 - `Object`
 - `Array`
 - `Date`
+- `Function`
+
+### Options
+
+Defaults:
+
+```js
+{
+  subset: false,
+  instanceOf: (Type, value) => value instanceof Type
+}
+```
+
+`subset`: when `true`, extra properties on object values will be ignored.
+
+```js
+const Type = { name: String }
+const value = { id: 1, name: 'John Doe' }
+
+assert.equal(diff(Type, value, { subset: true }), null)
+```
+
+`instanceOf`: used to check whether a `value` is an instance of a `Type`. This can be overridden in the case that a given value cannot be a `Subtype`.
+
+Example:
+```js
+class Type {}
+class Subtype extends Type {}
+const value = new Subtype()
+const instanceOf = (Type, value) => value.constructor === Type
+
+assert.deepEqual(diff(Type, value, { instanceOf }), {
+  actual: 'Subtype',
+  expected: 'Type',
+  value: {}
+})
+```
+
+### Helpers
+
+`Nullable(Type)`: Allows the corresponding `value` to be either the correct `Type` or `null`.
+
+`Optional(Type)`: Allows the corresponding `value` to be either the correct `Type` or `undefined`.
+
+`Any | Any()`: Requires that the corresponding value be anything but `undefined`. Used in conjuction with `Optional` if `undefined` is allowed; as in `Optional(Any)`
