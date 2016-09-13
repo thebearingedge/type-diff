@@ -17,7 +17,7 @@ const Type = {
     name: String,
     contacted: Nullable(Date),
     tags: Optional([String]),
-    wharrgarbl: Any()
+    wharrgarbl: Optional(Any)
   }]
 }
 
