@@ -22,7 +22,7 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
       return {
         actual: getTypeName(value),
         expected: 'Array',
-        value: value
+        value
       }
     }
 
@@ -47,14 +47,14 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
 
     if (!subset) {
       const valueKeys = keys(value)
-      const extraProps = difference(valueKeys, typeKeys)
-      if (extraProps.length) {
+      const extraKeys = difference(valueKeys, typeKeys)
+      if (extraKeys.length) {
         unexpected = {}
-        for (let i = 0, len = extraProps.length; i < len; i++) {
-          const extraProp = extraProps[i]
-          unexpected[extraProps] = {
-            unexpected: getTypeName(value[extraProp]),
-            value: value[extraProp]
+        for (let i = 0, len = extraKeys.length; i < len; i++) {
+          const extraKey = extraKeys[i]
+          unexpected[extraKeys] = {
+            unexpected: getTypeName(value[extraKey]),
+            value: value[extraKey]
           }
         }
       }
