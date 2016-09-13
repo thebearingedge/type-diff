@@ -23,6 +23,7 @@
     "object",
     "schema",
     "types",
+    "nested",
     "structure"
   ],
   "author": "Tim Davis",
