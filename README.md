@@ -62,9 +62,15 @@ Generate an object literal representation of the difference between your `Type` 
 - `Date`
 - `Function`
 
-### Options
+### Helpers
 
-Defaults:
+`Nullable(Type)`: Allows the corresponding `value` to be either the correct `Type` or `null`.
+
+`Optional(Type)`: Allows the corresponding `value` to be either the correct `Type` or `undefined`.
+
+`Any | Any()`: Requires that the corresponding value be anything but `undefined`. Used in conjuction with `Optional` if `undefined` is allowed; as in `Optional(Any)`
+
+### Options
 
 ```js
 {
@@ -82,9 +88,8 @@ const value = { id: 1, name: 'John Doe' }
 assert.equal(diff(Type, value, { subset: true }), null)
 ```
 
-`instanceOf`: used to check whether a `value` is an instance of a `Type`. This can be overridden in the case that a given value cannot be a `Subtype`.
+`instanceOf`: used to check whether a `value` is an instance of a `Type`. This can be overridden in the case that a given value must not be a `Subtype`.
 
-Example:
 ```js
 class Type {}
 class Subtype extends Type {}
@@ -97,11 +102,3 @@ assert.deepEqual(diff(Type, value, { instanceOf }), {
   value: {}
 })
 ```
-
-### Helpers
-
-`Nullable(Type)`: Allows the corresponding `value` to be either the correct `Type` or `null`.
-
-`Optional(Type)`: Allows the corresponding `value` to be either the correct `Type` or `undefined`.
-
-`Any | Any()`: Requires that the corresponding value be anything but `undefined`. Used in conjuction with `Optional` if `undefined` is allowed; as in `Optional(Any)`
