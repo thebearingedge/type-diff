@@ -10,14 +10,10 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
 
   if (Type === Any || Type instanceof Any) return null
 
-  if (Type instanceof Optional) {
-    if (isUndefined(value)) return null
-    return diff(Type.Type, value, options)
-  }
-
-  if (Type instanceof Nullable) {
-    if (isNull(value)) return null
-    return diff(Type.Type, value, options)
+  if (Type instanceof Optional || Type instanceof Nullable) {
+    return Type.is(value)
+      ? null
+      : diff(Type.Type, value, options)
   }
 
   if (isArray(Type)) {

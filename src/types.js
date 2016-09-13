@@ -3,7 +3,9 @@ import { isString,
          isBoolean,
          isPlainObject,
          isArray,
-         isDate } from 'lodash'
+         isDate,
+         isUndefined,
+         isNull } from 'lodash'
 
 export function Any() {
   if (!(this instanceof Any)) {
@@ -16,6 +18,7 @@ export function Optional(Type) {
     return new Optional(Type)
   }
   this.Type = Type
+  this.is = isUndefined
 }
 
 export function Nullable(Type) {
@@ -23,6 +26,7 @@ export function Nullable(Type) {
     return new Nullable(Type)
   }
   this.Type = Type
+  this.is = isNull
 }
 
 export const types = new Map([
