@@ -8,7 +8,11 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
 
   const options = { subset, instanceOf }
 
-  if (Type === Any || Type instanceof Any) return null
+  if (Type === Any || Type instanceof Any) {
+    return isUndefined(value)
+      ? { actual: 'Undefined', expected: 'Any' }
+      : null
+  }
 
   if (Type instanceof Optional || Type instanceof Nullable) {
     return Type.is(value)

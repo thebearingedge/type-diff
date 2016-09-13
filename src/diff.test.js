@@ -8,25 +8,32 @@ describe('diff(Type, value)', () => {
   context('when Type is a primitive', () => {
 
     it('diffs an Any Type', () => {
-      expect(diff(Any, null)).to.be.null
+      expect(diff(Any, undefined)).to.deep.equal({
+        actual: 'Undefined',
+        expected: 'Any'
+      })
     })
 
     it('diffs an instance of an Any Type', () => {
       expect(diff(Any(), null)).to.be.null
     })
 
-    it('diffs a primitive Type', () => {
-      expect(diff(Boolean, 1)).to.deep.equal({
-        actual: 'Number',
-        expected: 'Boolean',
-        value: 1
-      })
-    })
-
     it('diffs an Optional Type', () => {
       expect(diff(Optional(String), 1)).to.deep.equal({
         actual: 'Number',
         expected: 'String',
+        value: 1
+      })
+    })
+
+    it('diffs an Optional Any Type', () => {
+      expect(diff(Optional(Any), 1)).to.be.null
+    })
+
+    it('diffs a primitive Type', () => {
+      expect(diff(Boolean, 1)).to.deep.equal({
+        actual: 'Number',
+        expected: 'Boolean',
         value: 1
       })
     })
