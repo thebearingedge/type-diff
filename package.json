@@ -1,7 +1,7 @@
 {
   "name": "type-diff",
   "description": "Simple, readable, structural type comparisons",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/",
