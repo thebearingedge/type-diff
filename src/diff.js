@@ -56,7 +56,7 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
         unexpected = {}
         for (let i = 0, len = extraKeys.length; i < len; i++) {
           const extraKey = extraKeys[i]
-          unexpected[extraKeys] = {
+          unexpected[extraKey] = {
             unexpected: getTypeName(value[extraKey]),
             value: value[extraKey]
           }
