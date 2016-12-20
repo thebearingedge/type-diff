@@ -1,7 +1,7 @@
 {
   "name": "type-diff",
   "description": "Simple, readable, structural type comparisons",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/",
@@ -34,17 +34,20 @@
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
-    "babel-eslint": "7.1.0",
-    "babel-istanbul": "0.11.0",
+    "babel-eslint": "7.1.1",
+    "babel-istanbul": "0.12.1",
     "babel-plugin-transform-export-extensions": "6.8.0",
     "babel-preset-node6": "11.0.0",
     "chai": "3.5.0",
-    "coveralls": "2.11.14",
-    "eslint": "3.9.0",
+    "coveralls": "2.11.15",
+    "eslint": "3.12.2",
     "global": "4.3.1",
-    "husky": "0.11.9",
-    "mocha": "3.1.2",
-    "npm-run-all": "3.1.1",
+    "husky": "0.12.0",
+    "mocha": "3.2.0",
+    "npm-run-all": "3.1.2",
     "rimraf": "2.5.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.2"
   }
 }
