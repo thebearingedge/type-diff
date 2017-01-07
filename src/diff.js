@@ -32,12 +32,20 @@ export default function diff(Type, value, { subset=false, instanceOf=is } = {}) 
 
     let result = null
 
-    for (let i = 0, len = value.length; i < len; i++) {
-      const incorrect = diff(Type[0], value[i], options)
-      if (incorrect) {
-        result = result || {}
-        result[i] = incorrect
+    for (let v = 0, vLen = value.length; v < vLen; v++) {
+      let matched = false
+      let incorrect = null
+      let t, tLen
+      for (t = 0, tLen = Type.length; t < tLen; t++) {
+        incorrect = diff(Type[t], value[v], options)
+        if (!incorrect) {
+          matched = true
+          break
+        }
       }
+      if (matched) continue
+      result = result || {}
+      result[v] = incorrect
     }
 
     return result
