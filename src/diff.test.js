@@ -340,6 +340,27 @@ describe('diff(Type, value)', () => {
       })
     })
 
+    it('diffs a mixed Array of similar Objects', () => {
+      const Type = [{ foo: Number }, { bar: String }]
+      const value = [{ foo: 1 }, { bar: '1' }, { foo: 2 }]
+      const result = diff(Type, value)
+      expect(result).to.be.null
+    })
+
+    it('diffs a mixed Array of dissimilar Objects', () => {
+      const Type = [{ foo: Number }, { bar: String }]
+      const value = [{ foo: 1 }, { bar: false }, { foo: 2 }]
+      expect(diff(Type, value)).to.deep.equal({
+        '1': {
+          bar: {
+            actual: 'Boolean',
+            expected: 'String',
+            value: false
+          }
+        }
+      })
+    })
+
   })
 
   context('when type is a complex Object', () => {
