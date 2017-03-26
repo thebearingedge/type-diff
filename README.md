@@ -5,6 +5,8 @@ Simple, readable, structural type comparisons
 
 ### Quick Example
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/thebearingedge/type-diff.svg)](https://greenkeeper.io/)
+
 ```js
 import assert from 'assert'
 import { diff, Nullable, Optional, Any } from 'type-diff'
