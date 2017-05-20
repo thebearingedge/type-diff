@@ -1,11 +1,14 @@
-Simple, readable, structural type comparisons
+type-diff
+--
+Simple, readable, structural type comparisons.
 
 [![Build Status](https://travis-ci.org/thebearingedge/type-diff.svg?branch=master)](https://travis-ci.org/thebearingedge/type-diff)
 [![Coverage Status](https://coveralls.io/repos/github/thebearingedge/type-diff/badge.svg?branch=master)](https://coveralls.io/github/thebearingedge/type-diff?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/thebearingedge/type-diff.svg)](https://greenkeeper.io/)
+[![dependencies Status](https://david-dm.org/thebearingedge/type-diff/status.svg)](https://david-dm.org/thebearingedge/type-diff)
+[![devDependencies Status](https://david-dm.org/thebearingedge/type-diff/dev-status.svg)](https://david-dm.org/thebearingedge/type-diff?type=dev)
 
 ### Quick Example
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/thebearingedge/type-diff.svg)](https://greenkeeper.io/)
 
 ```js
 import assert from 'assert'
