@@ -12,7 +12,7 @@ Simple, readable, structural type comparisons.
 
 ```js
 import assert from 'assert'
-import { diff, Nullable, Optional, Any } from 'type-diff'
+import diff, { Nullable, Optional, Any } from 'type-diff'
 
 const Type = {
   id: Number,
@@ -53,7 +53,7 @@ assert.deepEqual(diff(Type, value), {
 ```
 ### Usage
 
-`diff(Type, value[, options])`
+`diff(Type, value)`
 
 Generate an object literal representation of the difference between your `Type` and a given `value` as shown above in the [Quick Example](#quick-example).
 
@@ -74,36 +74,3 @@ Generate an object literal representation of the difference between your `Type` 
 `Optional(Type)`: Allows the corresponding `value` to be either the correct `Type` or `undefined`.
 
 `Any | Any()`: Requires that the corresponding value be anything but `undefined`. Used in conjuction with `Optional` if `undefined` is allowed; as in `Optional(Any)`
-
-### Options
-
-```js
-{
-  subset: false,
-  instanceOf: (Type, value) => value instanceof Type
-}
-```
-
-`subset`: when `true`, extra properties on object values will be ignored.
-
-```js
-const Type = { name: String }
-const value = { id: 1, name: 'John Doe' }
-
-assert.equal(diff(Type, value, { subset: true }), null)
-```
-
-`instanceOf`: used to check whether a `value` is an instance of a `Type`. This can be overridden in the case that a given value must not be a `Subtype`.
-
-```js
-class Type {}
-class Subtype extends Type {}
-const value = new Subtype()
-const instanceOf = (Type, value) => value.constructor === Type
-
-assert.deepEqual(diff(Type, value, { instanceOf }), {
-  actual: 'Subtype',
-  expected: 'Type',
-  value: {}
-})
-```
