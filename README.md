@@ -12,7 +12,7 @@ Simple, readable, structural type comparisons.
 
 ```js
 import assert from 'assert'
-import diff, { Nullable, Optional, Any } from 'type-diff'
+import { diff, Nullable, Optional, Any } from 'type-diff'
 
 const Type = {
   id: Number,

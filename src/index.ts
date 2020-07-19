@@ -1,2 +1,2 @@
-export { default } from './diff'
+export { default as diff } from './diff'
 export { Any, Nullable, Optional } from './helpers'
